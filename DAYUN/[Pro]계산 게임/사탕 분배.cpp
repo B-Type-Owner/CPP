@@ -1,4 +1,16 @@
- #include<iostream>
+// 수학문제
+/*
+    C = A + B
+    A | B
+    2A (2A % C) | B - A ( 2B - C == (2B - C) % C == 2B % C)
+    => (전 단계 * 2) % c = 다음 단계
+    => k번째 단계 는 (2 ^ k) * (처음 숫자) % C
+
+    제곱 계산 할떄는 특히 숫자가 크니 unsigned long long 사용하기 
+*/
+
+
+#include<iostream>
 using namespace std;
 
 int powMoudleC(int a, int k, int c) {
