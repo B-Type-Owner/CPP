@@ -91,4 +91,5 @@ int findNumber(int mNum, int mNth, int ret[4])
 
 void changeJoker(int mValue)
 {
+    joker = mValue;
 }
