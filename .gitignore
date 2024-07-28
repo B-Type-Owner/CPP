@@ -1,3 +1,6 @@
 
 *.exe
 *.json
+*.txt
+DAYUN/.DS_Store
+.DS_Store
