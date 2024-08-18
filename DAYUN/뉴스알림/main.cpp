@@ -19,6 +19,7 @@ extern int checkUser(int mTime, int mUID, int mRetIDs[]);
 #define OFFER	2
 #define CANCEL	3
 #define CHECK	4
+int num = 0;
 
 static int gids[30];
 static int ansids[3];
@@ -33,15 +34,18 @@ static bool run()
 	bool okay = false;
 
 	scanf("%d", &Q);
+	num++;
     cmd = 0;
 	for (int q = 0; q < Q; ++q)
 	{
 
 		if(!okay && q != 0) {
-            cout <<  q << " " << cmd << endl;
+			if(!okay)
+	            cout << "error " << num << " " << q << " " << cmd << endl;
             break;
         }
 		scanf("%d", &cmd);
+		num++;
 
         switch (cmd)
 		{
@@ -83,7 +87,7 @@ static bool run()
 			}
 			if (ans != ret)	{
 				okay = false;
-                if(!okay) cout << "ret :" <<ret <<endl;
+                if(!okay) cout << "ret :" <<ret << " " << ans << " "<<endl;
 			}
 			else {
 				for (int m = 0; m < num; m++) {
@@ -98,7 +102,7 @@ static bool run()
 				}
 			}
             if(okay == false) {
-                cout << q << cmd << time << uid <<endl;
+                cout << q << " " <<cmd << " " << time << " " << uid <<endl;
             }
 			break;
 
@@ -117,11 +121,15 @@ int main()
 
 	int T, MARK;
 	scanf("%d %d", &T, &MARK);
-
-	for (int tc = 1; tc <= 1; tc++)
+	num++;
+	T = 10;
+	for (int tc = 1; tc <= T; tc++)
 	{
 		int score = run() ? MARK : 0;
 		printf("#%d %d\n", tc, score);
+		if(score == 0) {
+			break;
+		}
 	}
 
 	return 0;
