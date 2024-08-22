@@ -29,7 +29,7 @@ static bool run() {
 	bool okay = true;
 
 	for (int i = 0; i < q; ++i) {
-		if (!okay) break;
+		//if (!okay) break;
 		scanf("%d", &cmd);
 		switch (cmd) {
 		case CMD_INIT:
@@ -81,7 +81,7 @@ static bool run() {
 				}
 				for (int i = 0; i < genderCnt; ++i) {
 					cout << " " << genderArr[i];
-				} 
+				}
 				cout << " " << score << " " << ans << " " << ret << endl;
 			}
 			break;
