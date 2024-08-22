@@ -9,6 +9,11 @@ vector<int> cow;
 
 int main(int argc, char** argv)
 {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+
 	int test_case;
 	int T;
     int n;
@@ -60,7 +65,6 @@ int main(int argc, char** argv)
                 minNum++;
             }
         }
-        cout << endl;
 
 	
         cout << "#" << test_case << " " << minDist + abs(c1 - c2) << " " << minNum << "\n";
