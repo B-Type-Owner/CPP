@@ -3,6 +3,9 @@
 #endif
 
 #include <stdio.h>
+#include <iostream>
+
+using namespace std;
 
 extern void init();
 extern int add(int mId, int mGrade, char mGender[7], int mScore);
@@ -23,9 +26,10 @@ static bool run() {
 	int id, grade, score;
 	char gender[7];
 	int cmd, ans, ret;
-	bool okay = false;
+	bool okay = true;
 
 	for (int i = 0; i < q; ++i) {
+		if (!okay) break;
 		scanf("%d", &cmd);
 		switch (cmd) {
 		case CMD_INIT:
@@ -35,14 +39,18 @@ static bool run() {
 		case CMD_ADD:
 			scanf("%d %d %s %d %d", &id, &grade, gender, &score, &ans);
 			ret = add(id, grade, gender, score);
-			if (ans != ret)
+			if (ans != ret) {
 				okay = false;
+				cout << i << ": " << cmd << " " << id << " " << grade << " " << gender << " " << score << " " << ans << endl;
+			}
 			break;
 		case CMD_REMOVE:
 			scanf("%d %d", &id, &ans);
 			ret = remove(id);
-			if (ans != ret)
+			if (ans != ret) {
 				okay = false;
+				cout << i << ": " << cmd << " " << id << " " << ans << endl;
+			}
 			break;
 		case CMD_QUERY: {
 			int gradeCnt, genderCnt;
@@ -65,8 +73,17 @@ static bool run() {
 				scanf("%s %s %d %d", genderArr[0], genderArr[1], &score, &ans);
 			}
 			ret = query(gradeCnt, gradeArr, genderCnt, genderArr, score);
-			if (ans != ret)
+			if (ans != ret) {
 				okay = false;
+				cout << i << ": " << cmd << " " << gradeCnt;
+				for (int i = 0; i < gradeCnt; ++i) {
+					cout << " " << gradeArr[i];
+				}
+				for (int i = 0; i < genderCnt; ++i) {
+					cout << " " << genderArr[i];
+				} 
+				cout << " " << score << " " << ans << " " << ret << endl;
+			}
 			break;
 		}
 		default:
@@ -79,7 +96,7 @@ static bool run() {
 
 int main() {
 	setbuf(stdout, NULL);
-	//freopen("sample_input.txt", "r", stdin);
+	freopen("sample_input.txt", "r", stdin);
 
 	int T, MARK;
 	scanf("%d %d", &T, &MARK);
@@ -87,6 +104,7 @@ int main() {
 	for (int tc = 1; tc <= T; tc++) {
 		int score = run() ? MARK : 0;
 		printf("#%d %d\n", tc, score);
+		if (score == 0) break;
 	}
 
 	return 0;
