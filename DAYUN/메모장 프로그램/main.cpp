@@ -11,8 +11,8 @@
 
 extern void init(int H, int W, char mStr[]);
 extern void insert(char mChar);
-extern char moveCursor(int mRow, int mCol);
-extern int countCharacter(char mChar);
+extern char moveCursor(int mRow, int mCol, char ans);
+extern int countCharacter(char mChar, int ans);
 
 /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////
@@ -47,10 +47,10 @@ static bool run()
 			int mRow, mCol;
 			scanf("%d %d", &mRow, &mCol);
 
-			char ret = moveCursor(mRow, mCol);
 
 			char ans;
 			scanf(" %c", &ans);
+			char ret = moveCursor(mRow, mCol, ans);
 			if (ret != ans)
 			{
 				correct = false;
@@ -60,10 +60,10 @@ static bool run()
 		{
 			scanf(" %c", &mChar);
 
-			int ret = countCharacter(mChar);
 
 			int ans;
 			scanf("%d", &ans);
+			int ret = countCharacter(mChar, ans);
 			if (ret != ans)
 			{
 				correct = false;

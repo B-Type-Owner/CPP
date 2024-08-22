@@ -1,54 +1,75 @@
 #include <iostream>
 #include <cstring>
-
+#include <vector>
 using namespace std;
 
-struct node {
-	node* prev;
-	node* next;
-	char ch;
-};
+int height;
+int weight;
+int query_cnt = 1;
+int cursor;
+//vector<pair<char, int>> memo;
 
-int num_character[300][26];
-int node_cnt;
-int h;
-int w;
-node *cursor;
-int row_;
-node n[10000];
-node head[300];
-node tail[300];
+vector<char> memo;
+
 
 void init(int H, int W, char mStr[])
 {
-	int node_cnt = 0;
-	memset(num_character, 0, sizeof(num_character));
-	for (int i = 0; i < H; ++i) {
-		head[i].next = &tail[i];
-		tail[i].prev = &tail[i];
+	query_cnt += 2;
+	memo.clear();
+	cursor = 0;
+
+
+	height = H;
+	weight = W;
+	for (int i = 0; i < strlen(mStr); ++i) {
+		memo.push_back(mStr[i]);
 	}
-
-	h = H;
-	w = W;
-	cursor = &head[0];
-	line_node_cnt = 0;
-
 }
 
 void insert(char mChar)
 {
-	node* new_node = &n[node_cnt++];
-	n->ch = mChar;
-
-
+	query_cnt++;
+	memo.insert(memo.begin() + cursor, mChar);
+	cursor++;
 }
 
-char moveCursor(int mRow, int mCol)
+char moveCursor(int mRow, int mCol, char ans)
 {
-	return '$';
+	query_cnt++;
+	char ret = '$';
+	
+	mRow--;
+	mCol--;
+	int index = (mRow * weight) + mCol;
+	if (index >= memo.size()) {
+		cursor = memo.size();
+		ret = '$';
+	}
+	else {
+		cursor = index;
+		ret = memo[cursor];
+	}
+	
+
+	if (ans != ret) {
+		cout << query_cnt << ":" << mRow << " " << mCol << " " << ans << " ret:" << ret;
+	}
+	return ret;
 }
 
-int countCharacter(char mChar)
+int countCharacter(char mChar, int ans)
 {
-	return -1;
+ 	query_cnt++;
+	int ret = 0;
+	for (int i = cursor; i < memo.size(); ++i) {
+		if (memo[i] == mChar) {
+			ret++;
+		}
+	}
+
+	if (ans != ret) {
+		cout << query_cnt << ":" << mChar << " " << ans << " ret:" << ret;
+	}
+	return ret;
+	//return ans;
 }
